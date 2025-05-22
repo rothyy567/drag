@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Korean Food Table with Sound</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .table {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .plate {
+      width: 100px;
+      height: 100px;
+      border: 2px dashed #aaa;
+      line-height: 100px;
+      font-size: 20px;
+      background-color: #f9f9f9;
+    }
+    .food {
+      margin: 10px;
+      cursor: grab;
+      display: inline-block;
+    }
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>음식을 상에 놓아 주세요 (Place the food on the table)</h2>
+
+<!-- Droppable plates -->
+<div class="table">
+  <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)" id="spot1">①</div>
+  <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)" id="spot2">②</div>
+  <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)" id="spot3">③</div>
+  <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)" id="spot4">④</div>
+  <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)" id="spot5">⑤</div>
+  <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)" id="spot6">⑥</div>
+  <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)" id="spot7">⑦</div>
+  <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)" id="spot8">⑧</div>
+  <div class="plate" ondrop="drop(event)" ondragover="allowDrop(event)" id="spot9">⑨</div>
+</div>
+
+<!-- Draggable food items -->
+<h3>Drag the food items</h3>
+<div id="foodItems">
+  <div class="food" draggable="true" ondragstart="drag(event)" id="rice">
+    <img src="https://i.imgur.com/B2z7zTk.png" alt="밥"><br>밥 (Rice)
+  </div>
+  <div class="food" draggable="true" ondragstart="drag(event)" id="soup">
+    <img src="https://i.imgur.com/yh5NLUb.png" alt="국"><br>국 (Soup)
+  </div>
+  <div class="food" draggable="true" ondragstart="drag(event)" id="kimchi">
+    <img src="https://i.imgur.com/YmLgkqW.png" alt="김치"><br>김치
+  </div>
+  <div class="food" draggable="true" ondragstart="drag(event)" id="soy">
+    <img src="https://i.imgur.com/F4L7FQu.png" alt="간장"><br>간장 (Soy Sauce)
+  </div>
+  <div class="food" draggable="true" ondragstart="drag(event)" id="pumpkin">
+    <img src="https://i.imgur.com/tfT8Q1K.png" alt="호박전"><br>호박전 (Zucchini Pancake)
+  </div>
+  <div class="food" draggable="true" ondragstart="drag(event)" id="dongchimi">
+    <img src="https://i.imgur.com/IEVi7q3.png" alt="동치미"><br>동치미
+  </div>
+  <div class="food" draggable="true" ondragstart="drag(event)" id="fish">
+    <img src="https://i.imgur.com/yo8Dfih.png" alt="생선구이"><br>생선구이 (Grilled Fish)
+  </div>
+  <div class="food" draggable="true" ondragstart="drag(event)" id="stew">
+    <img src="https://i.imgur.com/q0iM8Mg.png" alt="된장찌개"><br>된장찌개 (Soybean Stew)
+  </div>
+  <div class="food" draggable="true" ondragstart="drag(event)" id="spoon">
+    <img src="https://i.imgur.com/yLWiRoq.png" alt="숟가락 젓가락"><br>숟가락/젓가락
+  </div>
+</div>
+
+<!-- Sound for drop -->
+<audio id="dropSound" src="drop.mp3" preload="auto"></audio>
+
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  var item = document.getElementById(data);
+  ev.target.innerHTML = '';
+  ev.target.appendChild(item);
+  document.getElementById("dropSound").play();
+}
+</script>
+
+</body>
+</html>
